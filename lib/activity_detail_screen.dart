@@ -1,47 +1,65 @@
 import 'package:flutter/material.dart';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_database/firebase_database.dart';
+import 'features/user_auth/firebase_auth_implementation/firebase_auth_services.dart';
+import 'package:provider/provider.dart';
+import 'provider/UserIdProvider.dart';
 
-import 'package:flutter/material.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 
 class ActivityDetailScreen extends StatelessWidget {
   final String id;
-
+  final FirebaseAuthService _auth = FirebaseAuthService();
   ActivityDetailScreen({required this.id});
+
+Future<void> addToPanier(String? userId, String activityId) async {
+  try {
+    // Reference to the "Cart" collection
+    var panierRef = FirebaseFirestore.instance.collection('Panier');
+
+    // Add a new document to the "Cart" collection
+    await panierRef.add({
+      'userId': userId,
+      'activityId': activityId,
+    });
+  } catch (e) {
+    print('Error adding to Panier: $e');
+  }
+}
+
+
+
 
   @override
   Widget build(BuildContext context) {
+      String? userId = Provider.of<UserIdProvider>(context).userId;
     return Scaffold(
       appBar: AppBar(
-        //title: Text(
-         // 'Activity Details',
-        //  style: TextStyle(color: Colors.green), // Set title text color to green
-       // ),
-           backgroundColor: Colors.green[500], // Set the background color of the app bar
+        backgroundColor: Colors.green[500],
         title: Row(
-          mainAxisAlignment: MainAxisAlignment.end, 
+          mainAxisAlignment: MainAxisAlignment.end,
           children: [
             Text(
               'ActiVenture',
               style: TextStyle(
-                color: Colors.white, // Set the color of the title text to white
-                fontSize: 20, // Adjust the font size of the title as needed
+                color: Colors.white,
+                fontSize: 20,
               ),
             ),
             Padding(
               padding: const EdgeInsets.all(15.0),
               child: Image.asset(
-                '../lib/images/Logoblanc.png', // Replace with your logo asset path
-                width: 50, // Adjust the width of the logo as needed
+                '../lib/images/Logoblanc.png',
+                width: 50,
               ),
             ),
-            
           ],
         ),
       ),
-      backgroundColor: Colors.white, // Set background color to white
+      backgroundColor: Colors.white,
       body: FutureBuilder(
         future: FirebaseFirestore.instance.collection('Activites').doc(id).get(),
         builder: (BuildContext context, AsyncSnapshot<DocumentSnapshot> snapshot) {
@@ -57,7 +75,6 @@ class ActivityDetailScreen extends StatelessWidget {
             return Center(child: Text('Activity not found'));
           }
 
-          // Extract activity data from snapshot
           var data = snapshot.data!;
           var titre = data['titre'];
           var image = data['image'];
@@ -70,9 +87,8 @@ class ActivityDetailScreen extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                // Display activity image
                 Container(
-                  height: 200, // Set a fixed height for the image container
+                  height: 200,
                   decoration: BoxDecoration(
                     image: DecorationImage(
                       image: NetworkImage(image),
@@ -81,13 +97,11 @@ class ActivityDetailScreen extends StatelessWidget {
                   ),
                 ),
                 SizedBox(height: 20),
-                // Display activity details
                 Padding(
                   padding: EdgeInsets.all(20),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      // Display structured title with green color
                       Text(
                         titre,
                         style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: Colors.green),
@@ -100,25 +114,31 @@ class ActivityDetailScreen extends StatelessWidget {
                     ],
                   ),
                 ),
-                // Add button to add to cart
                 Padding(
                   padding: const EdgeInsets.all(20.0),
                   child: ElevatedButton(
-                    onPressed: () {
-                      // Implement add to cart functionality here
+                    onPressed: () async {
+                      // Get the current user's ID
+                      print('getting user id');
+                      print(id);
+                      String? userId = await _auth.getUserId();
+                      print(userId);
+                      
+                      // Add the activity to the user's cart
+                      addToPanier(userId,id);
                     },
                     style: ButtonStyle(
-                      backgroundColor: MaterialStateProperty.all(Colors.white), // Set button background color to white
+                      backgroundColor: MaterialStateProperty.all(Colors.white),
                       shape: MaterialStateProperty.all(
                         RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(18.0), // Set button border radius
-                          side: BorderSide(color: Colors.green), // Set button border color to green
+                          borderRadius: BorderRadius.circular(18.0),
+                          side: BorderSide(color: Colors.green),
                         ),
                       ),
                     ),
                     child: Text(
                       'Ajouter au panier',
-                      style: TextStyle(color: Colors.green), // Set button text color to green
+                      style: TextStyle(color: Colors.green),
                     ),
                   ),
                 ),

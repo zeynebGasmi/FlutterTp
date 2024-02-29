@@ -4,7 +4,8 @@ import 'package:firebase_database/firebase_database.dart';
 import 'home_page.dart';
 import 'register_page.dart';
 import 'package:tp2/features/user_auth/firebase_auth_implementation/firebase_auth_services.dart';
-
+import 'package:provider/provider.dart';
+import 'provider/UserIdProvider.dart';
 /*
 class LoginPage extends StatefulWidget {
   @override
@@ -123,6 +124,7 @@ class _LoginPageState extends State<LoginPage> {
   }
 }
 */
+
 import 'package:flutter/material.dart';
 
 class LoginPage extends StatefulWidget {
@@ -225,9 +227,13 @@ class _LoginPageState extends State<LoginPage> {
                       _errorMessage = '';
                     });
 
+
                     // Simulated authentication for demonstration
                     await Future.delayed(Duration(seconds: 2));
-
+                    // Get user ID and update the provider
+                  
+                    String? userId = Provider.of<UserIdProvider>(context, listen: false).userId;
+            
                     // Navigate to the welcome page
                     Navigator.push(
                       context,
@@ -264,3 +270,4 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 }
+

@@ -100,4 +100,22 @@ class FirebaseAuthService {
       print('Error storing user data: $e');
     }
   }
+
+ Future<String?> getUserId() async {
+  try {
+    // Get the current user from FirebaseAuth
+    User? user = FirebaseAuth.instance.currentUser;
+    if (user != null) {
+      // Return the user's ID
+      return user.uid;
+    } else {
+      // User is not signed in
+      return null;
+    }
+  } catch (e) {
+    // Handle any errors
+    print('Error getting user ID: $e');
+    return null;
+  }
+}
 }

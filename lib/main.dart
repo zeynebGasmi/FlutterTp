@@ -4,6 +4,8 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'login_page.dart';
+import 'provider/UserIdProvider.dart';
+import 'package:provider/provider.dart';
 
 Future main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -20,7 +22,15 @@ Future main() async {
   } else {
     await Firebase.initializeApp();
   }
-  runApp(MyApp());
+  //runApp(MyApp());
+  UserIdProvider userIdProvider;
+  runApp(
+     
+     ChangeNotifierProvider(
+      create: (context) => UserIdProvider(),
+      child: MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {
