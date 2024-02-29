@@ -1,7 +1,4 @@
 import 'package:flutter/material.dart';
-
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
@@ -12,23 +9,43 @@ import 'provider/UserIdProvider.dart';
 
 class ActivityDetailScreen extends StatelessWidget {
   final String id;
+  final String userId;
   final FirebaseAuthService _auth = FirebaseAuthService();
-  ActivityDetailScreen({required this.id});
+  ActivityDetailScreen({required this.id, required this.userId});
 
-Future<void> addToPanier(String? userId, String activityId) async {
-  try {
-    // Reference to the "Cart" collection
-    var panierRef = FirebaseFirestore.instance.collection('Panier');
+Future<void> addToPanier(BuildContext context, String? userId, String activityId) async {
+    try {
+      // Reference to the "Panier" collection
+      var panierRef = FirebaseFirestore.instance.collection('Panier');
 
-    // Add a new document to the "Cart" collection
-    await panierRef.add({
-      'userId': userId,
-      'activityId': activityId,
-    });
-  } catch (e) {
-    print('Error adding to Panier: $e');
+      // Check if a document with the same userId and activityId already exists
+      var existingDoc = await panierRef
+          .where('userId', isEqualTo: userId)
+          .where('activityId', isEqualTo: activityId)
+          .get();
+
+      // If a document exists, show a message
+      if (existingDoc.docs.isNotEmpty) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Cette acttivité existe deja dans le panier.')),
+        );
+        return;
+      }
+
+      // If no existing document found, add a new document to the "Panier" collection
+      await panierRef.add({
+        'userId': userId,
+        'activityId': activityId,
+      });
+
+      // Show success message
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Activité ajoutée avec succès')),
+      );
+    } catch (e) {
+      print('Error adding to Panier: $e');
+    }
   }
-}
 
 
 
@@ -124,8 +141,8 @@ Future<void> addToPanier(String? userId, String activityId) async {
                       String? userId = await _auth.getUserId();
                       print(userId);
                       
-                      // Add the activity to the user's cart
-                      addToPanier(userId,id);
+                      // Add the activity to the user's Panier
+                      addToPanier(context,userId,id);
                     },
                     style: ButtonStyle(
                       backgroundColor: MaterialStateProperty.all(Colors.white),

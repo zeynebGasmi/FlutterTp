@@ -1,137 +1,10 @@
 import 'package:flutter/material.dart';
-/*
-class WelcomePage extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Welcome'),
-      ),
-      body: Center(
-        child: Text(
-          'Welcome to the App!',
-          style: TextStyle(fontSize: 24),
-        ),
-      ),
-    );
-  }
-}
-import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'activity_detail_screen.dart'; 
 
 class WelcomePage extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Welcome'),
-      ),
-      body: StreamBuilder(
-        stream: FirebaseFirestore.instance.collection('Activites').snapshots(),
-        builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
-          if (snapshot.hasError) {
-            return Text('Error: ${snapshot.error}');
-          }
-
-          if (snapshot.connectionState == ConnectionState.waiting) {
-            return CircularProgressIndicator(); // Display a loading indicator while fetching data
-          }
-
-          if (snapshot.data == null || snapshot.data!.docs.isEmpty) {
-            return Text('No documents found');
-          }
-
-          return ListView.builder(
-            itemCount: snapshot.data!.docs.length,
-            itemBuilder: (BuildContext context, int index) {
-              // Extract data from each document
-              var doc = snapshot.data!.docs[index];
-              var image = doc['image'];
-              var titre = doc['titre'];
-              var lieu = doc['lieu'];
-              var prix = doc['prix'];
-              var participantsMin = doc['nombreParticipantsMin'];
-              var categorie = doc['categorie'];
-
-              // Display the data in a ListTile or any other widget
-              return ListTile(
-                leading: Image.network("gs://projetflutter-2e0c2.appspot.com/images/cuisine.jpg"), // Assuming image is a URL
-                title: Text(titre),
-                subtitle: Text('Lieu: $lieu\nPrix: $prix €\nParticipants Min: $participantsMin\nCatégorie: $categorie'),
-              );
-            },
-          );
-        },
-      ),
-    );
-  }
-}
-*/
-/*
-import 'package:flutter/material.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
-
-class WelcomePage extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Welcome'),
-      ),
-      body: StreamBuilder(
-        stream: FirebaseFirestore.instance.collection('Activites').snapshots(),
-        builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
-          if (snapshot.hasError) {
-            return Text('Error: ${snapshot.error}');
-          }
-
-          if (snapshot.connectionState == ConnectionState.waiting) {
-            return CircularProgressIndicator(); // Display a loading indicator while fetching data
-          }
-
-          if (snapshot.data == null || snapshot.data!.docs.isEmpty) {
-            return Text('No documents found');
-          }
-
-          return ListView.builder(
-            itemCount: snapshot.data!.docs.length,
-            itemBuilder: (BuildContext context, int index) {
-              // Extract data from each document
-              var doc = snapshot.data!.docs[index];
-              var image = doc['image'];
-              var titre = doc['titre'];
-              var lieu = doc['lieu'];
-              var prix = doc['prix'];
-              var participantsMin = doc['nombreParticipantsMin'];
-              var categorie = doc['categorie'];
-
-              // Display the data in a ListTile or any other widget
-              return ListTile(
-                leading: image != null ? Image.network(image) : Placeholder(), // Display placeholder if image URL is not available
-                title: Text(titre),
-                subtitle: Text('Lieu: $lieu\nPrix: $prix €\nParticipants Min: $participantsMin\nCatégorie: $categorie'),
-              );
-            },
-          );
-        },
-      ),
-    );
-  }
-}
-*/
-
-import 'package:flutter/material.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'activity_detail_screen.dart'; // Import the detail screen file
-import 'package:flutter/material.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
-
- // Import the detail screen file
-import 'package:flutter/material.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
- // Import the detail screen file
-
-class WelcomePage extends StatelessWidget {
+  final String userId;
+  WelcomePage({required this.userId});
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -194,7 +67,7 @@ class WelcomePage extends StatelessWidget {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => ActivityDetailScreen(id: id),
+                      builder: (context) => ActivityDetailScreen(id: id,userId:userId ),
                     ),
                   );
                 },
