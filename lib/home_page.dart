@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'activity_detail_screen.dart'; 
-
+import 'panier.dart';
 class WelcomePage extends StatelessWidget {
   final String userId;
   WelcomePage({required this.userId});
@@ -137,13 +137,22 @@ class WelcomePage extends StatelessWidget {
                 Text('Activité', style: TextStyle(color: Colors.green[900])), // Add label with darker green color
               ],
             ),
-            Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Icon(Icons.shopping_cart, color: Colors.green[900]), // Change icon color to darker green
-                Text('Panier', style: TextStyle(color: Colors.green[900])), // Add label with darker green color
-              ],
-            ),
+            GestureDetector(
+  onTap: () async {
+    // Navigate to Panier screen and pass userId as parameter
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => Panier(userId: userId)),
+    );
+  },
+  child: Column(
+    mainAxisSize: MainAxisSize.min,
+    children: [
+      Icon(Icons.shopping_cart, color: Colors.green[900]), // Change icon color to darker green
+      Text('Panier', style: TextStyle(color: Colors.green[900])), // Add label with darker green color
+    ],
+  ),
+),
             Column(
               mainAxisSize: MainAxisSize.min,
               children: [
