@@ -158,6 +158,7 @@ import 'package:provider/provider.dart';
 import 'provider/UserIdProvider.dart';
 import 'home_page.dart';
 import 'register_page.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class LoginPage extends StatefulWidget {
   @override
@@ -170,19 +171,28 @@ class _LoginPageState extends State<LoginPage> {
   bool _obscureText = true;
   String _errorMessage = '';
   String userUid = '';
-
+  String userName ='';
   Future<void> signIn() async {
     String email = emailController.text;
     String password = passwordController.text;
     try {
       User? user = await FirebaseAuthService().signInWithEmailAndPassword(email, password);
+       var usersRef = FirebaseFirestore.instance.collection('users');
+       
       if (user != null) {
+        var snapshot = await usersRef.doc(user.uid).get();
+        
+        var data = snapshot.data()!;
+         userName= data['name']; // Assuming 'name' is the field that contains the user's name
+        
         setState(() {
           userUid = user.uid;
+          userName = userName;
         });
+
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => WelcomePage(userId: userUid)),
+          MaterialPageRoute(builder: (context) => WelcomePage(userId: userUid,userName : userName)),
         );
       } else {
         setState(() {

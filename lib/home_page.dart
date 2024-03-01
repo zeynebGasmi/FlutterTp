@@ -4,7 +4,8 @@ import 'activity_detail_screen.dart';
 import 'panier.dart';
 class WelcomePage extends StatelessWidget {
   final String userId;
-  WelcomePage({required this.userId});
+  final String userName;
+  WelcomePage({required this.userId, required this.userName});
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -142,7 +143,7 @@ class WelcomePage extends StatelessWidget {
     // Navigate to Panier screen and pass userId as parameter
     Navigator.push(
       context,
-      MaterialPageRoute(builder: (context) => Panier(userId: userId)),
+      MaterialPageRoute(builder: (context) => Panier(userId: userId,userName:userName)),
     );
   },
   child: Column(
