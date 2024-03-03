@@ -42,6 +42,8 @@ Interface utilisateurs:
  - Logo : 
    - Inspiration du design : Le design du Logo est un arbre entouré de deux oiseaux, l'arbre donne     rappel à la nature et les aventures et le oiseau stimule la liberté du choix et l'ouverture d'esprit. Au dessus, le nom de l'application "Activenture" et en bas notre slogon "Découvrez votre prochaine aventure, Réservez la avec facilité". 
    - Types de logos crées: J'ai créé deux modèles du logo, le principale sur un fond blanc et le secondaire en couleur blanche sur un le fond vert principale de l'application afin de l'utiliser sur la bare de menu de l'application. 
+
+   
    ![Logo principal](lib/images/LogoActiVenture.png)  ![Logo secondaire](lib/images/Logoblanc.png)
 
 
