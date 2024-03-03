@@ -431,7 +431,7 @@ class _PanierState extends State<Panier> {
               onTap: () async {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => UserInfoScreen(userId: widget.userId)),
+                  MaterialPageRoute(builder: (context) => UserInfoScreen(userId: widget.userId,userName: widget.userName)),
                 );
               },
               child : Column(

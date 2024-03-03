@@ -3,7 +3,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'activity_detail_screen.dart'; 
 import 'panier.dart';
 import 'Activities_by_category.dart';
-
+import 'user_info_screen.dart';
 
 class WelcomePage extends StatelessWidget {
   final String userId;
@@ -212,13 +212,23 @@ class WelcomePage extends StatelessWidget {
                 ],
               ),
             ),
-            Column(
+                  GestureDetector(
+              onTap: () async {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => UserInfoScreen(userId: userId, userName: userName)),
+                );
+              },
+          
+              child :Column(
               mainAxisSize: MainAxisSize.min,
               children: [
                 Icon(Icons.person, color: Colors.green[900]),
                 Text('Profile', style: TextStyle(color: Colors.green[900])),
               ],
             ),
+            ),
+      
           ],
         ),
       ),

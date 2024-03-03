@@ -28,8 +28,28 @@ class _RegistrationPageState extends State<RegistrationPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Register'),
+        appBar: AppBar(
+          
+        backgroundColor: Colors.green[500],
+        title: Row(
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: [
+            Padding(
+              padding: const EdgeInsets.all(5.0),
+              child: Image.asset(
+                '../lib/images/Logoblanc.png',
+                width: 50,
+              ),
+            ),
+            Text(
+              'ActiVenture',
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 20,
+              ),
+            ),
+          ],
+        ),
       ),
       backgroundColor: Colors.white,
       body: Padding(
@@ -41,20 +61,33 @@ class _RegistrationPageState extends State<RegistrationPage> {
               TextField(
                 controller: nameController,
                 decoration: InputDecoration(
-                  labelText: 'Name',
-                  border: OutlineInputBorder(),
+                  labelText: 'Nom complet',
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(30.0), 
+                    
+                    borderSide: BorderSide(
+                    color: const Color.fromARGB(255, 232, 245, 233), // Set the color of the border
+                       ),
+                  ),
                   filled: true,
-                  fillColor: Colors.grey[200],
+                  fillColor: Colors.green[50],
+                  labelStyle: TextStyle(fontSize: 14),
                 ),
               ),
+           
               SizedBox(height: 20),
               TextField(
                 controller: emailController,
                 decoration: InputDecoration(
                   labelText: 'Email',
-                  border: OutlineInputBorder(),
+                  border: OutlineInputBorder(borderRadius: BorderRadius.circular(30.0), 
+                    
+                    borderSide: BorderSide(
+                    color: const Color.fromARGB(255, 232, 245, 233), // Set the color of the border
+                       ),),
                   filled: true,
-                  fillColor: Colors.grey[200],
+                  fillColor: Colors.green[50],
+                  labelStyle: TextStyle(fontSize: 14),
                 ),
               ),
               SizedBox(height: 20),
@@ -62,14 +95,19 @@ class _RegistrationPageState extends State<RegistrationPage> {
                 controller: passwordController,
                 obscureText: _obscureText,
                 decoration: InputDecoration(
-                  labelText: 'Password',
-                  border: OutlineInputBorder(),
+                  labelText: 'Mot de pass',
+                  border: OutlineInputBorder(borderRadius: BorderRadius.circular(30.0), 
+                    
+                    borderSide: BorderSide(
+                    color: const Color.fromARGB(255, 232, 245, 233), // Set the color of the border
+                       ),),
                   filled: true,
-                  fillColor: Colors.grey[200],
+                  fillColor: Colors.green[50],
+                  labelStyle: TextStyle(fontSize: 14),
                   suffixIcon: IconButton(
                     icon: Icon(
                       _obscureText ? Icons.visibility : Icons.visibility_off,
-                      color: Colors.grey,
+                      color: Colors.green[500],
                     ),
                     onPressed: () {
                       setState(() {
@@ -91,11 +129,16 @@ class _RegistrationPageState extends State<RegistrationPage> {
                             ? DateFormat('yyyy-MM-dd').format(selectedDate!)
                             : ''),
                     decoration: InputDecoration(
-                      labelText: 'Birthdate',
-                      border: OutlineInputBorder(),
+                      labelText: 'Date de naissance',
+                      border: OutlineInputBorder(borderRadius: BorderRadius.circular(30.0), 
+                    
+                    borderSide: BorderSide(
+                    color: const Color.fromARGB(255, 232, 245, 233), // Set the color of the border
+                       ),),
                       filled: true,
-                      fillColor: Colors.grey[200],
-                      hintText: 'Select birthdate',
+                      fillColor: Colors.green[50],
+                      labelStyle: TextStyle(fontSize: 14),
+                      hintText: 'choisir une date',
                     ),
                   ),
                 ),
@@ -104,30 +147,45 @@ class _RegistrationPageState extends State<RegistrationPage> {
               TextField(
                 controller: addressController,
                 decoration: InputDecoration(
-                  labelText: 'Address',
-                  border: OutlineInputBorder(),
+                  labelText: 'Adresse',
+                  border: OutlineInputBorder(borderRadius: BorderRadius.circular(30.0), 
+                    
+                    borderSide: BorderSide(
+                    color: const Color.fromARGB(255, 232, 245, 233), // Set the color of the border
+                       ),),
                   filled: true,
-                  fillColor: Colors.grey[200],
+                  fillColor: Colors.green[50],
+                  labelStyle: TextStyle(fontSize: 14),
                 ),
               ),
               SizedBox(height: 20),
               TextField(
                 controller: postalCodeController,
                 decoration: InputDecoration(
-                  labelText: 'Postal Code',
-                  border: OutlineInputBorder(),
+                  labelText: 'Code Postale',
+                  border: OutlineInputBorder(borderRadius: BorderRadius.circular(30.0), 
+                    
+                    borderSide: BorderSide(
+                    color: const Color.fromARGB(255, 232, 245, 233), // Set the color of the border
+                       ),),
                   filled: true,
-                  fillColor: Colors.grey[200],
+                  fillColor: Colors.green[50],
+                  labelStyle: TextStyle(fontSize: 14),
                 ),
               ),
               SizedBox(height: 20),
               TextField(
                 controller: cityController,
                 decoration: InputDecoration(
-                  labelText: 'City',
-                  border: OutlineInputBorder(),
+                  labelText: 'Ville',
+                  border: OutlineInputBorder(borderRadius: BorderRadius.circular(30.0), 
+                    
+                    borderSide: BorderSide(
+                    color: const Color.fromARGB(255, 232, 245, 233), // Set the color of the border
+                       ),),
                   filled: true,
-                  fillColor: Colors.grey[200],
+                  fillColor: Colors.green[50],
+                  labelStyle: TextStyle(fontSize: 14),
                 ),
               ),
               SizedBox(height: 20),
@@ -139,7 +197,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
                   ),
                   onPressed: register,
                   child: Text(
-                    'Register',
+                    'Inscrire',
                     style: TextStyle(color: Colors.white),
                   ),
                 ),

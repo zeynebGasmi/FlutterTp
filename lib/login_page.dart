@@ -246,9 +246,13 @@ class _LoginPageState extends State<LoginPage> {
               controller: emailController,
               decoration: InputDecoration(
                 labelText: 'Email',
-                border: OutlineInputBorder(),
+                border: OutlineInputBorder(borderRadius: BorderRadius.circular(30.0), 
+                    
+                    borderSide: BorderSide(
+                    color: const Color.fromARGB(255, 232, 245, 233), // Set the color of the border
+                       ),),
                 filled: true,
-                fillColor: Colors.grey[200],
+                fillColor: Colors.green[50],
               ),
             ),
             SizedBox(height: 20),
@@ -257,13 +261,17 @@ class _LoginPageState extends State<LoginPage> {
               obscureText: _obscureText,
               decoration: InputDecoration(
                 labelText: 'Password',
-                border: OutlineInputBorder(),
+                border: OutlineInputBorder(borderRadius: BorderRadius.circular(30.0), 
+                    
+                    borderSide: BorderSide(
+                    color: const Color.fromARGB(255, 232, 245, 233), // Set the color of the border
+                       ),),
                 filled: true,
-                fillColor: Colors.grey[200],
+                fillColor: Colors.green[50],
                 suffixIcon: IconButton(
                   icon: Icon(
                     _obscureText ? Icons.visibility : Icons.visibility_off,
-                    color: Colors.grey,
+                    color: Colors.green[500],
                   ),
                   onPressed: () {
                     setState(() {
